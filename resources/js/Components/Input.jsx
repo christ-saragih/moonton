@@ -30,6 +30,7 @@ const Input = (props) => {
             <input
                 type={type}
                 name={name}
+                id={name}
                 value={value}
                 defaultValue={defaultValue}
                 className={`rounded-2xl bg-form-bg py-[13px] px-7 w-full ${
