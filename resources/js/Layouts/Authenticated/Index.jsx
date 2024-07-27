@@ -1,4 +1,5 @@
 import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
 
 const Index = (props) => {
     const { children } = props;
@@ -13,6 +14,7 @@ const Index = (props) => {
                 <div className="ml-[300px] px-[50px]">
                     <div className="py-10 flex flex-col gap-[50px]">
                         {/* START: Topbar */}
+                        <Topbar />
                         {/* END: Topbar */}
                         <main>{children}</main>
                     </div>
