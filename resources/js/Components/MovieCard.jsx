@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import PropTypes from "prop-types";
 
 const MovieCard = (props) => {
@@ -26,7 +27,7 @@ const MovieCard = (props) => {
                     alt=""
                 />
             </div>
-            <a href={slug} className="inset-0 absolute z-50"></a>
+            <Link href={route("prototype.movie.show", slug)} className="inset-0 absolute z-50"></Link>
         </div>
     );
 };
