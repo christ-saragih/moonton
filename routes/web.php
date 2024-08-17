@@ -14,7 +14,7 @@ Route::get('user', function() {
     return 'Hi User';
 })->middleware('role:user');
 
-Route::redirect('/', '/prototype/login');
+Route::redirect('/', '/login');
 
 Route::prefix('prototype')->name('prototype.')->group(function() {
     route::get('/login', function() {
