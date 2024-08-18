@@ -2,7 +2,7 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
 const Index = (props) => {
-    const { children } = props;
+    const { user, children } = props;
     return (
         <>
             <div className="mx-auto max-w-screen hidden lg:block">
@@ -14,7 +14,8 @@ const Index = (props) => {
                 <div className="ml-[300px] px-[50px]">
                     <div className="py-10 flex flex-col gap-[50px]">
                         {/* START: Topbar */}
-                        <Topbar />
+                        {/* {{ Auth::user()->name }} */}
+                        <Topbar name={user.name} />
                         {/* END: Topbar */}
                         <main>{children}</main>
                     </div>
