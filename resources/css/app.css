@@ -13,7 +13,7 @@
 }
 
 .input-primary-outline {
-    @apply bg-white focus:bg-white border-alerange focus:border-alerange;
+    @apply bg-white outline outline-1 outline-gray-400 focus:outline-2 focus:outline-alerange transition-all;
 }
 
 .input-error {
@@ -101,8 +101,8 @@
     }
 
     input.top-search {
-        @apply rounded-full border border-gray-2 placeholder:text-gray-1 text-base text-gray-1 px-5 py-[11px]
-            w-full max-w-[570px] focus:outline-none focus:ring-2 transition-all bg-no-repeat bg-center bg-[center_right_20px];
+        @apply rounded-full outline outline-1 outline-gray-400 placeholder:text-gray-400 text-base text-slate-700 px-5 py-[11px]
+            w-full max-w-[570px] focus:outline-2 focus:outline-alerange focus:ring-2 transition-all bg-no-repeat bg-center bg-[center_right_20px];
     }
 }
 /* SIDEBAR: End */
