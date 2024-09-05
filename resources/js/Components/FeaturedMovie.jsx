@@ -7,8 +7,8 @@ const FeaturedMovie = (props) => {
         // Movie Thumbnail
         <div className="absolute overflow-hidden group mr-[30px]">
             <img
-                src={thumbnail}
-                className="object-cover rounded-[30px] w-[520px] h-[340px]"
+                src={`/storage/${thumbnail}`}
+                className="object-fill rounded-[30px] w-[520px] h-[340px]"
                 alt=""
             />
             {/* rating */}

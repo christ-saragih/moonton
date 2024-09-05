@@ -2,6 +2,7 @@ export default function Checkbox({
     name,
     className = "",
     handleChange,
+    checked = false,
     ...props
 }) {
     return (
@@ -14,6 +15,7 @@ export default function Checkbox({
                 className
             }
             onChange={(e) => handleChange(e)}
+            defaultChecked={checked}
         />
     );
 }

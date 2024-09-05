@@ -6,15 +6,9 @@ import Button from "@/Components/Button";
 import Authenticated from "@/Layouts/Authenticated/Index";
 import { Head, useForm } from "@inertiajs/react";
 
-const Create = ({ auth }) => {
-    const { setData, post, processing, errors } = useForm({
-        // value yang akan dikirim ke backend
-        name: "",
-        category: "",
-        video_url: "",
-        thumbnail: "",
-        rating: "",
-        is_featured: false,
+const Edit = ({ auth, movie }) => {
+    const { data, setData, put, processing, errors } = useForm({
+        ...movie,
     });
 
     const onHandleChange = (event) => {
@@ -29,13 +23,22 @@ const Create = ({ auth }) => {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("admin.dashboard.movie.store"));
+        // mengecek thumbnail agar tidak duplikat
+        if (data.thumbnail === movie.thumbnail) {
+            delete data.thumbnail;
+        }
+
+        put(route("admin.dashboard.movie.update", movie.id), {
+            ...data,
+        });
+
+        console.log(data);
     };
 
     return (
         <Authenticated auth={auth}>
-            <Head title="Create Movie" />
-            <h1 className="text-2xl font-medium mb-1">Insert a new movie</h1>
+            <Head title="Edit Movie" />
+            <h1 className="text-2xl font-medium mb-1">Edit movie</h1>
             <hr className="mb-4" />
 
             <form onSubmit={submit}>
@@ -48,6 +51,7 @@ const Create = ({ auth }) => {
                     autoComplete="name"
                     isFocused
                     handleChange={onHandleChange}
+                    defaultValue={movie.name}
                 />
                 <InputError message={errors.name} className="mt-2" />
 
@@ -59,6 +63,7 @@ const Create = ({ auth }) => {
                     placeholder="Enter the category of the movie.."
                     autoComplete="category"
                     handleChange={onHandleChange}
+                    defaultValue={movie.category}
                 />
                 <InputError message={errors.category} className="mt-2" />
 
@@ -70,10 +75,16 @@ const Create = ({ auth }) => {
                     placeholder="Enter the video url of the movie.."
                     autoComplete="video_url"
                     handleChange={onHandleChange}
+                    defaultValue={movie.video_url}
                 />
                 <InputError message={errors.video_url} className="mt-2" />
 
                 <Label htmlFor="thumbnail" value="Thumbnail" className="mt-4" />
+                <img
+                    src={`/storage/${movie.thumbnail}`}
+                    alt="movie"
+                    className="w-40 rounded-md shadow mb-2"
+                />
                 <Input
                     type="file"
                     name="thumbnail"
@@ -92,6 +103,7 @@ const Create = ({ auth }) => {
                     placeholder="Enter the rating of the movie.."
                     autoComplete="rating"
                     handleChange={onHandleChange}
+                    defaultValue={movie.rating}
                 />
                 <InputError message={errors.rating} className="mt-2" />
 
@@ -106,15 +118,16 @@ const Create = ({ auth }) => {
                         handleChange={(e) =>
                             setData("is_featured", e.target.checked)
                         }
+                        checked={movie.is_featured}
                     />
                 </div>
 
                 <Button type="submit" className="mt-4" processing={processing}>
-                    Save
+                    Edit
                 </Button>
             </form>
         </Authenticated>
     );
 };
 
-export default Create;
+export default Edit;

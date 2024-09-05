@@ -1,11 +1,13 @@
 import Authenticated from "@/Layouts/Authenticated/Index";
 import Button from "@/Components/Button";
 import FlashMessage from "@/Components/FlashMessage";
-import { Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 const Index = ({ auth, flashMessage, movies }) => {
+    const { delete: destroy, put } = useForm();
     return (
         <Authenticated auth={auth}>
+            <Head title="List of Movie" />
             <Link href={route("admin.dashboard.movie.create")}>
                 <Button type={"button"} className={"w-40 mb-8"}>
                     Insert New Movie
@@ -49,25 +51,46 @@ const Index = ({ auth, flashMessage, movies }) => {
                                     <img
                                         src={`/storage/${movie.thumbnail}`}
                                         alt="movie"
-                                        className="w-32 rounded-md"
+                                        className="w-32 h-44 object-cover rounded-md"
                                     />
                                 </td>
                                 <td class="px-6 py-4">{movie.name}</td>
                                 <td class="px-6 py-4">{movie.category}</td>
-                                <td class="px-6 py-4">{movie.rating.toFixed(1)}</td>
+                                <td class="px-6 py-4">
+                                    {movie.rating.toFixed(1)}
+                                </td>
                                 <td class="px-6 py-4">
                                     <Link
-                                        href="#"
+                                        href={route(
+                                            "admin.dashboard.movie.edit",
+                                            movie.id
+                                        )}
                                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                     >
                                         Edit
                                     </Link>
-                                    <Link
-                                        href="#"
-                                        class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                                    <div
+                                        onClick={() => {
+                                            movie.deleted_at
+                                                ? put(
+                                                      route(
+                                                          "admin.dashboard.movie.restore",
+                                                          movie.id
+                                                      )
+                                                  )
+                                                : destroy(
+                                                      route(
+                                                          "admin.dashboard.movie.destroy",
+                                                          movie.id
+                                                      )
+                                                  );
+                                        }}
+                                        class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3 inline cursor-pointer"
                                     >
-                                        Delete
-                                    </Link>
+                                        {movie.deleted_at
+                                            ? "Restore"
+                                            : "Delete"}
+                                    </div>
                                 </td>
                             </tr>
                         ))}
