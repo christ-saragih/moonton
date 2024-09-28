@@ -27,7 +27,7 @@ class Update extends FormRequest
             'name' => 'nullable|unique:movies,name,'.$this->movie->id, 
             'category' => 'nullable',
             'video_url' => 'nullable|url',
-            'thumbnail' => 'nullable|image',
+            'thumbnail' => 'nullable|image|max:2048',
             'rating' => 'nullable|numeric|min:0|max:5',
             'is_featured' => 'nullable|boolean',
         ];

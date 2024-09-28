@@ -72,11 +72,18 @@ class MovieController extends Controller
     public function update(Update $request, Movie $movie)
     {
         $data = $request->validated();
-        if ($request->file('thumbnail')) {
-            $data['thumbnail'] = Storage::disk('public')->put('movies', $request->file('thumbnail'));
-            Storage::disk('public')->delete($movie->thumbnail);
+
+        if ($request->hasFile('thumbnail')) {
+            // Delete old thumbnail
+            if ($movie->thumbnail) {
+                Storage::disk('public')->delete($movie->thumbnail);
+            }
+            
+            // Store new thumbnail
+            $data['thumbnail'] = $request->file('thumbnail')->store('movies', 'public');
         } else {
-            $data['thumbnail'] = $movie->thumbnail;
+            // If no new thumbnail is uploaded, remove it from $data to prevent overwriting with null
+            unset($data['thumbnail']);
         }
 
         $movie->update($data);

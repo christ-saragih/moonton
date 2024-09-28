@@ -7,32 +7,43 @@ import Authenticated from "@/Layouts/Authenticated/Index";
 import { Head, useForm } from "@inertiajs/react";
 
 const Edit = ({ auth, movie }) => {
-    const { data, setData, put, processing, errors } = useForm({
-        ...movie,
+    const { data, setData, post, processing, errors } = useForm({
+        _method: "PUT", // For Laravel to recognize this as a PUT request
+        name: movie.name,
+        category: movie.category,
+        video_url: movie.video_url,
+        thumbnail: null, // Initialize as null
+        rating: movie.rating,
+        is_featured: movie.is_featured,
     });
 
     const onHandleChange = (event) => {
+        const { name, type, value, files, checked } = event.target;
         setData(
-            event.target.name,
-            event.target.type === "file"
-                ? event.target.files[0]
-                : event.target.value
+            name,
+            type === "file" ? files[0] : type === "checkbox" ? checked : value
         );
     };
 
     const submit = (e) => {
         e.preventDefault();
 
-        // mengecek thumbnail agar tidak duplikat
-        if (data.thumbnail === movie.thumbnail) {
-            delete data.thumbnail;
-        }
+        // Create a new FormData object
+        const formData = new FormData();
 
-        put(route("admin.dashboard.movie.update", movie.id), {
-            ...data,
+        // Append all form fields to formData
+        Object.keys(data).forEach((key) => {
+            if (key === "thumbnail" && data[key] === null) {
+                // Don't append thumbnail if it's null
+            } else {
+                formData.append(key, data[key]);
+            }
         });
 
-        console.log(data);
+        post(route("admin.dashboard.movie.update", movie.id), formData, {
+            preserveState: true,
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -41,7 +52,7 @@ const Edit = ({ auth, movie }) => {
             <h1 className="text-2xl font-medium mb-1">Edit movie</h1>
             <hr className="mb-4" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} encType="multipart/form-data">
                 <Label htmlFor="name" value="Movie Name" />
                 <Input
                     type="text"
@@ -80,11 +91,13 @@ const Edit = ({ auth, movie }) => {
                 <InputError message={errors.video_url} className="mt-2" />
 
                 <Label htmlFor="thumbnail" value="Thumbnail" className="mt-4" />
-                <img
-                    src={`/storage/${movie.thumbnail}`}
-                    alt="movie"
-                    className="w-40 rounded-md shadow mb-2"
-                />
+                {movie.thumbnail && (
+                    <img
+                        src={`/storage/${movie.thumbnail}`}
+                        alt="movie"
+                        className="w-40 rounded-md shadow mb-2"
+                    />
+                )}
                 <Input
                     type="file"
                     name="thumbnail"
@@ -115,9 +128,7 @@ const Edit = ({ auth, movie }) => {
                     />
                     <Checkbox
                         name="is_featured"
-                        handleChange={(e) =>
-                            setData("is_featured", e.target.checked)
-                        }
+                        handleChange={onHandleChange}
                         checked={movie.is_featured}
                     />
                 </div>
