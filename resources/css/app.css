@@ -63,7 +63,7 @@
 
 /* BUTTON: Start */
 .btn-primary {
-    @apply bg-alerange text-white;
+    @apply bg-alerange text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#fb69084D] ;
 }
 
 .btn-warning {

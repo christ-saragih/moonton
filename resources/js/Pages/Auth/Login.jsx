@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import Button from "@/Components/Button";
 import Input from "@/Components/Input";
 import InputError from "@/Components/InputError";
 import Label from "@/Components/Label";
+import { useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 const Login = ({ status, canResetPassword }) => {
@@ -38,12 +38,16 @@ const Login = ({ status, canResetPassword }) => {
                 </div>
                 <div className="py-24 flex laptopLg:ml-[680px] laptopXl:ml-[870px]">
                     <div>
-                        <img src="/assets/images/moonton-white.svg" alt="" />
+                        <img
+                            src="/assets/images/white-streamy-logo.svg"
+                            alt="white streamy logo"
+                            className="w-32 h-32"
+                        />
                         <div className="my-[70px]">
                             <div className="font-semibold text-[26px] mb-3">
                                 Welcome Back
                             </div>
-                            <p className="text-base text-[#767676] leading-7">
+                            <p className="text-base text-[#b6b6b6] leading-7">
                                 Explore our new movies and get <br />
                                 the better insight for your life
                             </p>
@@ -74,10 +78,6 @@ const Login = ({ status, canResetPassword }) => {
                                         }
                                         required
                                     />
-                                    <InputError
-                                        message={errors.email}
-                                        className="mt-2"
-                                    />
                                 </div>
                                 <div>
                                     <Label
@@ -95,13 +95,13 @@ const Login = ({ status, canResetPassword }) => {
                                         }
                                         required
                                     />
-                                    <InputError
-                                        message={errors.password}
-                                        className="mt-2"
-                                    />
                                 </div>
                             </div>
-                            <div className="grid space-y-[14px] mt-[30px]">
+                            <div className="mt-[30px] mb-2 text-center">
+                                <InputError message={errors.email} />
+                                <InputError message={errors.password} />
+                            </div>
+                            <div className="grid space-y-[14px]">
                                 <Button type={"submit"} processing={processing}>
                                     <span className="text-base font-semibold">
                                         Start Watching

@@ -8,11 +8,11 @@ import { Head, useForm } from "@inertiajs/react";
 
 const Edit = ({ auth, movie }) => {
     const { data, setData, post, processing, errors } = useForm({
-        _method: "PUT", // For Laravel to recognize this as a PUT request
+        _method: "PUT",
         name: movie.name,
         category: movie.category,
         video_url: movie.video_url,
-        thumbnail: null, // Initialize as null
+        thumbnail: null,
         rating: movie.rating,
         is_featured: movie.is_featured,
     });

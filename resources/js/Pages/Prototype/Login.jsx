@@ -15,7 +15,7 @@ const Login = () => {
             </div>
             <div className="py-24 flex laptopLg:ml-[680px] laptopXl:ml-[870px]">
                 <div>
-                    <img src="/assets/images/moonton-white.svg" alt="" />
+                    <img src="/assets/images/white-streamy-logo" alt="white streamy logo" />
                     <div className="my-[70px]">
                         <div className="font-semibold text-[26px] mb-3">
                             Welcome Back

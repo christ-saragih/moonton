@@ -8,11 +8,13 @@ const Index = ({ auth, flashMessage, movies }) => {
     return (
         <Authenticated auth={auth}>
             <Head title="List of Movie" />
-            <Link href={route("admin.dashboard.movie.create")}>
-                <Button type={"button"} className={"w-40 mb-8"}>
+
+            <Link href={route("admin.dashboard.movie.create")} className="w-full flex justify-end">
+                <Button type={"button"} className={"max-w-52 mb-8"}>
                     Insert New Movie
                 </Button>
             </Link>
+
             {flashMessage?.message && (
                 <FlashMessage
                     type={flashMessage.type}

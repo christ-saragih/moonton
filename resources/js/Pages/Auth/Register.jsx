@@ -37,12 +37,16 @@ const Register = () => {
                 </div>
                 <div className="py-24 flex laptopLg:ml-[680px] laptopXl:ml-[870px]">
                     <div>
-                        <img src="/assets/images/moonton-white.svg" alt="" />
+                        <img
+                            src="/assets/images/white-streamy-logo.svg"
+                            alt="white streamy logo"
+                            className="w-32 h-32"
+                        />
                         <div className="my-[70px]">
                             <div className="font-semibold text-[26px] mb-3">
                                 Sign Up
                             </div>
-                            <p className="text-base text-[#767676] leading-7">
+                            <p className="text-base text-[#b6b6b6] leading-7">
                                 Explore our new movies and get <br />
                                 the better insight for your life
                             </p>
